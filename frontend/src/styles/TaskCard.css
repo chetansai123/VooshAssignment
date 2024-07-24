@@ -1,0 +1,58 @@
+.task-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.task-card h3 {
+  margin: 0;
+}
+
+.task-card p {
+  margin: 5px 0;
+}
+
+.task-card-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.view-details-btn,
+.edit-btn,
+.delete-btn {
+  padding: 5px 10px;
+  cursor: pointer;
+}
+button {
+  padding: 3px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.view-details-btn {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.edit-btn {
+  background-color: #ffc107;
+  color: white;
+  border: none;
+}
+
+.delete-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+}
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 17px;
+}
