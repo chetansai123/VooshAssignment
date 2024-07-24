@@ -18,8 +18,12 @@ const TaskBoardPage = () => {
 
     useEffect(() => {
         const fetchTasks = async () => {
-            const fetchedTasks = await getTasks();
-            setTasks(fetchedTasks);
+            try {
+                const fetchedTasks = await getTasks();
+                setTasks(fetchedTasks);
+            } catch (err) {
+                console.error("Failed to fetch tasks:", err);
+            }
         };
         fetchTasks();
     }, []);
@@ -32,20 +36,20 @@ const TaskBoardPage = () => {
 
     const handleEditTask = async (taskData) => {
         const updatedTask = await updateTask(taskData);
-        setTasks(tasks.map(task => (task._id === updatedTask._id ? updatedTask : task)));
+        setTasks(tasks?.map(task => (task?._id === updatedTask?._id ? updatedTask : task)));
         setSelectedTask(null);
     };
 
     const handleDeleteTask = async (taskId) => {
         await deleteTask(taskId);
-        setTasks(tasks.filter(task => task._id !== taskId));
+        setTasks(tasks?.filter(task => task?._id !== taskId));
     };
 
     const handleDrop = async (taskId, newStatus) => {
-        const task = tasks.find(task => task._id === taskId);
+        const task = tasks?.find(task => task?._id === taskId);
         if (task) {
             const updatedTask = await updateTask({ ...task, status: newStatus });
-            setTasks(tasks.map(t => (t._id === taskId ? updatedTask : t)));
+            setTasks(tasks?.map(t => (t?._id === taskId ? updatedTask : t)));
         }
     };
 
@@ -54,12 +58,12 @@ const TaskBoardPage = () => {
         setIsModalOpen(true);
     };
 
-    const filteredTasks = tasks.filter(task =>
-        task.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredTasks = tasks?.filter(task =>
+        task?.title?.toLowerCase().includes(searchTerm?.toLowerCase())
     );
 
     const sortTasks = (tasksToSort) => {
-        return tasksToSort.sort((a, b) => {
+        return tasksToSort?.sort((a, b) => {
             if (sortBy === 'Recent') {
                 return new Date(b.createdAt) - new Date(a.createdAt);
             } else {
@@ -68,9 +72,9 @@ const TaskBoardPage = () => {
         });
     };
 
-    const sortedToDoTasks = sortTasks(filteredTasks.filter(task => task.status === 'To Do'));
-    const sortedInProgressTasks = sortTasks(filteredTasks.filter(task => task.status === 'In Progress'));
-    const sortedDoneTasks = sortTasks(filteredTasks.filter(task => task.status === 'Done'));
+    const sortedToDoTasks = sortTasks(filteredTasks?.filter(task => task?.status === 'To Do'));
+    const sortedInProgressTasks = sortTasks(filteredTasks?.filter(task => task?.status === 'In Progress'));
+    const sortedDoneTasks = sortTasks(filteredTasks?.filter(task => task?.status === 'Done'));
 
     return (
         <DndProvider backend={HTML5Backend}>
